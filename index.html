@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Hduka_tfffk Studio —— 2026 年 9 月创立的个人开发工作室，提供 C++ 命令行工具下载。">
+<meta name="theme-color" content="#3b5bdb">
+<title>Hduka_tfffk Studio | hduka_tfffk.dev</title>
+
+<style>
+  /* ---------- 主题变量 ---------- */
+  :root {
+    --bg: #f7f8fc;
+    --fg: #1a1f2b;
+    --muted: #6b7385;
+    --line: rgba(20, 30, 60, .13);
+    --accent: #3b5bdb;
+    --accent-2: #7048e8;
+    --glow: rgba(59, 91, 219, .10);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1016;
+      --fg: #e7ebf3;
+      --muted: #8f99ae;
+      --line: rgba(255, 255, 255, .14);
+      --accent: #8aa4ff;
+      --accent-2: #b8a1ff;
+      --glow: rgba(138, 164, 255, .10);
+    }
+  }
+
+  /* ---------- 基础 ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0 clamp(1.1rem, 5vw, 2rem);
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: clamp(15px, .4vw + 14px, 17px);
+    line-height: 1.8;
+    color: var(--fg);
+    background:
+      radial-gradient(70rem 28rem at 50% -14%, var(--glow), transparent 72%),
+      var(--bg);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    width: min(100%, 880px);
+    margin-inline: auto;
+  }
+
+  /* ---------- 顶部 ---------- */
+  .hero {
+    padding: clamp(2rem, 6vw, 4rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1000 / 400;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--glow);
+  }
+
+  h1 {
+    margin: clamp(1.2rem, 4vw, 1.8rem) 0 .4rem;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    line-height: 1.2;
+    letter-spacing: -.022em;
+    font-weight: 700;
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tagline {
+    margin: 0;
+    font-size: .92em;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+
+  /* ---------- 公告栏 ---------- */
+  .notice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .3rem 1.1rem;
+    margin: 0 0 .5rem;
+    padding: .3rem 0 .3rem 1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .notice-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    flex: none;
+    font-size: .82em;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--accent);
+  }
+
+  /* 呼吸小圆点 */
+  .dot {
+    position: relative;
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    animation: ping 2.4s ease-out infinite;
+  }
+
+  @keyframes ping {
+    0%        { transform: scale(1);   opacity: .55; }
+    75%, 100% { transform: scale(2.8); opacity: 0; }
+  }
+
+  .notice-text {
+    flex: 1;
+    min-width: 12em;
+    margin: 0;
+    font-size: .95em;
+  }
+
+  .notice-text .date {
+    margin-right: .6rem;
+    font-size: .84em;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- 区块（无线框，仅用细线分隔） ---------- */
+  section {
+    padding: clamp(1.6rem, 4vw, 2.4rem) 0;
+    border-top: 1px solid var(--line);
+  }
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 0 0 1.1rem;
+    font-size: 1.08rem;
+    font-weight: 650;
+    letter-spacing: .04em;
+    color: var(--fg);
+  }
+
+  /* 标题右侧延伸的细线 */
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  p { margin: 0 0 .7rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ---------- 下载列表 ---------- */
+  .dl-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dl-list a {
+    display: flex;
+    align-items: baseline;
+    gap: .85rem;
+    padding: .85rem .2rem;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dashed var(--line);
+    transition: color .18s ease, padding-left .18s ease;
+  }
+
+  .dl-list li:last-child a { border-bottom: 0; }
+
+  .dl-list .mark {
+    flex: none;
+    font-weight: 700;
+    color: var(--accent);
+    transition: transform .18s ease;
+  }
+
+  .dl-list .name {
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .dl-list .meta {
+    font-size: .82em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .dl-list a:hover,
+  .dl-list a:focus-visible {
+    color: var(--accent);
+    padding-left: .6rem;
+  }
+
+  .dl-list a:hover .mark,
+  .dl-list a:focus-visible .mark {
+    transform: translateY(2px);
+  }
+
+  /* ---------- 友情链接（每行一个） ---------- */
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .55rem;
+  }
+
+  .links li { margin: 0; }
+
+  .links a {
+    display: flex;
+    align-items: baseline;
+    gap: .55rem;
+    width: fit-content;
+    max-width: 100%;
+    padding: .25rem 0;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dashed transparent;
+    transition: color .18s ease, border-color .18s ease;
+  }
+
+  .links a::before {
+    content: "→";
+    flex: none;
+    font-weight: 700;
+    color: var(--accent);
+    transition: transform .18s ease;
+  }
+
+  .links a:hover,
+  .links a:focus-visible {
+    color: var(--accent);
+    border-bottom-color: currentColor;
+  }
+
+  .links a:hover::before,
+  .links a:focus-visible::before {
+    transform: translateX(3px);
+  }
+
+  .links .desc {
+    font-size: .82em;
+    color: var(--muted);
+  }
+
+  /* ---------- 联系方式 ---------- */
+  .contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .7rem;
+  }
+
+  .contact li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .3rem .9rem;
+  }
+
+  .contact .label {
+    flex: none;
+    min-width: 4.5em;
+    font-size: .86em;
+    letter-spacing: .06em;
+    color: var(--muted);
+  }
+
+  a.link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    word-break: break-all;
+    transition: border-color .18s ease;
+  }
+
+  a.link:hover,
+  a.link:focus-visible { border-bottom-color: currentColor; }
+
+  a.link .out {
+    font-size: .85em;
+    opacity: .75;
+  }
+
+  .note {
+    font-size: .84em;
+    color: var(--muted);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ---------- 页脚 ---------- */
+  footer {
+    padding: 2rem 0 3rem;
+    border-top: 1px solid var(--line);
+    font-size: .84em;
+    color: var(--muted);
+  }
+
+  footer p { margin: 0; }
+
+  /* ---------- 动效偏好 ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <header class="hero wrap">
+    <img src="https://cdn.luogu.com.cn/upload/image_hosting/bkkzfzgo.png"
+         alt="Hduka_tfffk Studio 横幅图片">
+    <h1>欢迎来到 Hduka_tfffk Studio</h1>
+    <p class="tagline">hduka_tfffk c++</p>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 公告栏：后续有新公告，复制 <p class="notice-text"> 整行即可 -->
+    <aside class="notice" aria-label="公告">
+      <span class="notice-tag">
+        <span class="dot" aria-hidden="true"></span>公告
+      </span>
+      <p class="notice-text">
+        <span class="date">2026-09-29</span>我们仍在更新StarOs，最新版本为v1.7。
+      </p>
+    </aside>
+
+    <section id="about">
+      <h2>简介</h2>
+      <p>该工作室创立于 2026 年 9 月，我们致力于通过dev-cpp编写程序。</p>
+    </section>
+
+    <section id="download">
+      <h2>文件下载</h2>
+      <ul class="dl-list">
+        <li>
+          <a href="https://wwavf.lanzout.com/iPwOZ46zpl9g"
+             target="_blank" rel="noopener noreferrer">
+            <span class="mark" aria-hidden="true">↓</span>
+            <span class="name">C++ CMD</span>
+            <span class="meta">蓝奏云 ↗</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://wwavf.lanzout.com/iWk294adoq1e"
+             target="_blank" rel="noopener noreferrer">
+            <span class="mark" aria-hidden="true">↓</span>
+            <span class="name">C++ MS-DOS</span>
+            <span class="meta">蓝奏云 ↗</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="links">
+      <h2>友情链接</h2>
+      <!-- 替换为实际友链：复制 <li> 整行，改 href 与文字即可 -->
+      <ul class="links">
+        <li>
+          <a href="https://www.luogu.com.cn/" target="_blank" rel="noopener noreferrer">
+            洛谷 <span class="desc">luogu</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://space.bilibili.com/3546939358447984"
+             target="_blank" rel="noopener noreferrer">
+            哔哩哔哩 <span class="desc">bilibili</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>联系方式</h2>
+      <ul class="contact">
+        <li>
+          <span class="label">邮箱</span>
+          <span class="label">Yanghaorui_@outlook.com</span>
+          <span class="note">（不常看）</span>
+        </li>
+        <li>
+          <span class="label">最新发布</span>
+          <a class="link" href="https://space.bilibili.com/3546939358447984"
+             target="_blank" rel="noopener noreferrer">
+            哔哩哔哩主页 <span class="out">↗</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="wrap">
+    <p>© 2026 Hduka_tfffk Studio · hduka_tfffk.dev</p>
+  </footer>
+
+</body>
+</html>
