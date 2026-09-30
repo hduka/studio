@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Hduka_tfffk Studio —— 2026 年 9 月创立的个人开发工作室，提供 C++ 命令行工具下载。">
+<meta name="description" content="Hduka Studio —— 2026 年 9 月创立的个人开发工作室，提供 C++ 命令行工具下载。">
 <meta name="theme-color" content="#3b5bdb">
 <title>Hduka Studio | hduka cpp</title>
 
@@ -93,12 +93,12 @@
     color: var(--muted);
   }
 
-  /* ---------- 公告栏 ---------- */
+  /* ---------- 公告栏（支持多条，每条自动换行） ---------- */
   .notice {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: .3rem 1.1rem;
+    gap: .4rem 1.1rem;
     margin: 0 0 .5rem;
     padding: .3rem 0 .3rem 1rem;
     border-left: 3px solid var(--accent);
@@ -139,11 +139,18 @@
     75%, 100% { transform: scale(2.8); opacity: 0; }
   }
 
-  .notice-text {
+  /* 公告内容区：纵向堆叠，每条公告独占一行 */
+  .notice-body {
     flex: 1;
     min-width: 12em;
+    display: grid;
+    gap: .35rem;
+  }
+
+  .notice-text {
     margin: 0;
     font-size: .95em;
+    overflow-wrap: break-word;
   }
 
   .notice-text .date {
@@ -361,19 +368,24 @@
 
   <main class="wrap">
 
-    <!-- 公告栏：后续有新公告，复制 <p class="notice-text"> 整行即可 -->
+    <!-- 公告栏：新增公告只需在 notice-body 内复制一行 <p class="notice-text"> -->
     <aside class="notice" aria-label="公告">
       <span class="notice-tag">
         <span class="dot" aria-hidden="true"></span>公告
       </span>
-      <p class="notice-text">
-        <span class="date">2026-09-29</span>我们仍在更新StarOs，最新版本为v1.7。
-      </p>
+      <div class="notice-body">
+        <p class="notice-text">
+          <span class="date">2026-09-30</span>我们仍在更新 StarOS，最新版本为 v1.7.2。
+        </p>
+        <p class="notice-text">
+          <span class="date">2026-09-30</span>如想加入请联系我们。
+        </p>
+      </div>
     </aside>
 
     <section id="about">
       <h2>简介</h2>
-      <p>该工作室创立于 2026 年 9 月，我们致力于通过dev-cpp编写程序。</p>
+      <p>该工作室创立于 2026 年 9 月，我们致力于通过 dev-cpp 开发有意思的东西。</p>
     </section>
 
     <section id="download">
@@ -387,7 +399,7 @@
             <span class="meta">蓝奏云 ↗</span>
           </a>
         </li>
-		<li>
+        <li>
           <a href="https://wwavf.lanzout.com/iWk294adoq1e"
              target="_blank" rel="noopener noreferrer">
             <span class="mark" aria-hidden="true">↓</span>
@@ -395,7 +407,7 @@
             <span class="meta">蓝奏云 ↗</span>
           </a>
         </li>
-		<li>
+        <li>
           <a href="https://example.com"
              target="_blank" rel="noopener noreferrer">
             <span class="mark" aria-hidden="true">↓</span>
@@ -411,17 +423,6 @@
       <!-- 替换为实际友链：复制 <li> 整行，改 href 与文字即可 -->
       <ul class="links">
         <li>
-          <a href="https://www.luogu.com.cn/" target="_blank" rel="noopener noreferrer">
-            洛谷 <span class="desc">luogu</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://space.bilibili.com/"
-             target="_blank" rel="noopener noreferrer">
-            哔哩哔哩 <span class="desc">bilibili</span>
-          </a>
-        </li>
-		<li>
           <a href="https://github.com/hduka/studio"
              target="_blank" rel="noopener noreferrer">
             网站仓库 <span class="desc">github</span>
@@ -451,7 +452,7 @@
   </main>
 
   <footer class="wrap">
-    <p>© 2026 Hduka Studio · 该网页纯手写</p>
+    <p>© 2026 Hduka Studio · 该网页纯手写（该网页版本为 1.2.4）</p>
   </footer>
 
 </body>
