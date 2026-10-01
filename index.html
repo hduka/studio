@@ -4,30 +4,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Hduka Studio —— 2026 年 9 月创立的个人开发工作室，提供 C++ 命令行工具下载。">
-<meta name="theme-color" content="#3b5bdb">
+<meta name="theme-color" content="#3498db">
 <title>Hduka Studio | hduka cpp</title>
 
 <style>
-  /* ---------- 主题变量 ---------- */
+  /* ---------- 主题变量（洛谷配色） ---------- */
   :root {
-    --bg: #f7f8fc;
-    --fg: #1a1f2b;
-    --muted: #6b7385;
-    --line: rgba(20, 30, 60, .13);
-    --accent: #3b5bdb;
-    --accent-2: #7048e8;
-    --glow: rgba(59, 91, 219, .10);
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --fg: #333333;
+    --fg-2: #555555;
+    --muted: #999999;
+    --line: #e8e8e8;
+    --line-strong: #d8d8d8;
+    --accent: #3498db;
+    --accent-hover: #2980b9;
+    --accent-bg: #eaf4fc;
+    --accent-bd: #bfe0f5;
+    --radius: 4px;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0d1016;
-      --fg: #e7ebf3;
-      --muted: #8f99ae;
-      --line: rgba(255, 255, 255, .14);
-      --accent: #8aa4ff;
-      --accent-2: #b8a1ff;
-      --glow: rgba(138, 164, 255, .10);
+      --bg: #1a1c1f;
+      --surface: #232629;
+      --fg: #d6d8da;
+      --fg-2: #a8abae;
+      --muted: #808388;
+      --line: #33363a;
+      --line-strong: #3d4045;
+      --accent: #5dade2;
+      --accent-hover: #85c1e9;
+      --accent-bg: #1c2b36;
+      --accent-bd: #2c4a5e;
     }
   }
 
@@ -41,27 +50,27 @@
 
   body {
     margin: 0;
-    padding: 0 clamp(1.1rem, 5vw, 2rem);
-    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
-                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    font-size: clamp(15px, .4vw + 14px, 17px);
-    line-height: 1.8;
+    padding: 0 clamp(1rem, 4vw, 1.75rem);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                 Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
     color: var(--fg);
-    background:
-      radial-gradient(70rem 28rem at 50% -14%, var(--glow), transparent 72%),
-      var(--bg);
+    background: var(--bg);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
 
   .wrap {
-    width: min(100%, 880px);
+    width: min(100%, 900px);
     margin-inline: auto;
   }
 
   /* ---------- 顶部 ---------- */
   .hero {
-    padding: clamp(2rem, 6vw, 4rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem) 0 1.25rem;
+    border-bottom: 1px solid var(--line);
   }
 
   .hero img {
@@ -70,122 +79,91 @@
     height: auto;
     aspect-ratio: 1000 / 400;
     object-fit: cover;
-    border-radius: 6px;
-    background: var(--glow);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
   }
 
   h1 {
-    margin: clamp(1.2rem, 4vw, 1.8rem) 0 .4rem;
-    font-size: clamp(1.6rem, 5vw, 2.6rem);
-    line-height: 1.2;
-    letter-spacing: -.022em;
-    font-weight: 700;
-    background: linear-gradient(100deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    margin: 1.25rem 0 .3rem;
+    font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--fg);
   }
 
   .tagline {
     margin: 0;
-    font-size: .92em;
-    letter-spacing: .04em;
+    font-size: .88em;
     color: var(--muted);
   }
 
-  /* ---------- 公告栏（支持多条，每条自动换行） ---------- */
+  /* ---------- 公告栏（洛谷风格浅蓝区块） ---------- */
   .notice {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: .4rem 1.1rem;
-    margin: 0 0 .5rem;
-    padding: .3rem 0 .3rem 1rem;
+    align-items: flex-start;
+    gap: .85rem;
+    margin: 1.25rem 0 0;
+    padding: .75rem 1rem;
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-bd);
     border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
   }
 
   .notice-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: .55rem;
     flex: none;
-    font-size: .82em;
-    font-weight: 700;
-    letter-spacing: .1em;
-    color: var(--accent);
+    display: inline-block;
+    padding: .05rem .5rem;
+    margin-top: .15rem;
+    font-size: .74em;
+    font-weight: 600;
+    letter-spacing: .06em;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 3px;
+    white-space: nowrap;
   }
 
-  /* 呼吸小圆点 */
-  .dot {
-    position: relative;
-    flex: none;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
-  .dot::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: currentColor;
-    animation: ping 2.4s ease-out infinite;
-  }
-
-  @keyframes ping {
-    0%        { transform: scale(1);   opacity: .55; }
-    75%, 100% { transform: scale(2.8); opacity: 0; }
-  }
-
-  /* 公告内容区：纵向堆叠，每条公告独占一行 */
   .notice-body {
     flex: 1;
-    min-width: 12em;
+    min-width: 0;
     display: grid;
-    gap: .35rem;
+    gap: .25rem;
   }
 
   .notice-text {
     margin: 0;
-    font-size: .95em;
+    font-size: .92em;
+    color: var(--fg-2);
     overflow-wrap: break-word;
   }
 
   .notice-text .date {
-    margin-right: .6rem;
-    font-size: .84em;
+    margin-right: .5rem;
+    font-size: .88em;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
   }
 
-  /* ---------- 区块（无线框，仅用细线分隔） ---------- */
+  /* ---------- 区块 ---------- */
   section {
-    padding: clamp(1.6rem, 4vw, 2.4rem) 0;
-    border-top: 1px solid var(--line);
+    padding: clamp(1.4rem, 3.5vw, 2rem) 0;
+    border-bottom: 1px solid var(--line);
   }
 
   h2 {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    margin: 0 0 1.1rem;
-    font-size: 1.08rem;
-    font-weight: 650;
-    letter-spacing: .04em;
+    display: block;
+    margin: 0 0 1rem;
+    padding-left: .7rem;
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.3;
     color: var(--fg);
+    border-left: 3px solid var(--accent);
   }
 
-  /* 标题右侧延伸的细线 */
-  h2::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-  }
-
-  p { margin: 0 0 .7rem; }
+  p { margin: 0 0 .6rem; }
   p:last-child { margin-bottom: 0; }
 
   /* ---------- 下载列表 ---------- */
@@ -193,48 +171,46 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
   }
+
+  .dl-list li + li { border-top: 1px solid var(--line); }
 
   .dl-list a {
     display: flex;
     align-items: baseline;
-    gap: .85rem;
-    padding: .85rem .2rem;
-    color: inherit;
+    gap: .75rem;
+    padding: .7rem 1rem;
+    color: var(--fg);
     text-decoration: none;
-    border-bottom: 1px dashed var(--line);
-    transition: color .18s ease, padding-left .18s ease;
+    transition: background-color .15s ease, color .15s ease;
   }
-
-  .dl-list li:last-child a { border-bottom: 0; }
 
   .dl-list .mark {
     flex: none;
     font-weight: 700;
     color: var(--accent);
-    transition: transform .18s ease;
   }
 
   .dl-list .name {
-    font-weight: 600;
     flex: 1;
+    font-weight: 500;
   }
 
   .dl-list .meta {
-    font-size: .82em;
+    flex: none;
+    font-size: .8em;
     color: var(--muted);
     white-space: nowrap;
   }
 
   .dl-list a:hover,
   .dl-list a:focus-visible {
-    color: var(--accent);
-    padding-left: .6rem;
-  }
-
-  .dl-list a:hover .mark,
-  .dl-list a:focus-visible .mark {
-    transform: translateY(2px);
+    background: var(--accent-bg);
+    color: var(--accent-hover);
   }
 
   /* ---------- 友情链接（每行一个） ---------- */
@@ -243,45 +219,34 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: .55rem;
+    gap: .1rem;
   }
 
-  .links li { margin: 0; }
-
   .links a {
-    display: flex;
+    display: inline-flex;
     align-items: baseline;
-    gap: .55rem;
-    width: fit-content;
-    max-width: 100%;
-    padding: .25rem 0;
-    color: inherit;
+    gap: .5rem;
+    padding: .35rem 0;
+    color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px dashed transparent;
-    transition: color .18s ease, border-color .18s ease;
+    transition: color .15s ease;
   }
 
   .links a::before {
-    content: "→";
+    content: "▸";
     flex: none;
-    font-weight: 700;
+    font-size: .9em;
     color: var(--accent);
-    transition: transform .18s ease;
   }
 
   .links a:hover,
   .links a:focus-visible {
-    color: var(--accent);
-    border-bottom-color: currentColor;
-  }
-
-  .links a:hover::before,
-  .links a:focus-visible::before {
-    transform: translateX(3px);
+    color: var(--accent-hover);
+    text-decoration: underline;
   }
 
   .links .desc {
-    font-size: .82em;
+    font-size: .8em;
     color: var(--muted);
   }
 
@@ -291,57 +256,58 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: .7rem;
+    gap: .5rem;
   }
 
   .contact li {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: .3rem .9rem;
+    gap: .3rem .8rem;
   }
 
   .contact .label {
     flex: none;
     min-width: 4.5em;
     font-size: .86em;
-    letter-spacing: .06em;
     color: var(--muted);
   }
 
   a.link {
     color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
     word-break: break-all;
-    transition: border-color .18s ease;
+    transition: color .15s ease;
   }
 
   a.link:hover,
-  a.link:focus-visible { border-bottom-color: currentColor; }
+  a.link:focus-visible {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
 
   a.link .out {
     font-size: .85em;
-    opacity: .75;
+    opacity: .8;
   }
 
   .note {
-    font-size: .84em;
+    font-size: .82em;
     color: var(--muted);
   }
 
   :focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 4px;
+    outline-offset: 2px;
+    border-radius: 3px;
   }
 
   /* ---------- 页脚 ---------- */
   footer {
-    padding: 2rem 0 3rem;
-    border-top: 1px solid var(--line);
-    font-size: .84em;
+    padding: 1.5rem 0 2.5rem;
+    font-size: .82em;
     color: var(--muted);
+    text-align: center;
   }
 
   footer p { margin: 0; }
@@ -349,10 +315,7 @@
   /* ---------- 动效偏好 ---------- */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    * {
-      transition: none !important;
-      animation: none !important;
-    }
+    * { transition: none !important; }
   }
 </style>
 </head>
@@ -370,12 +333,10 @@
 
     <!-- 公告栏：新增公告只需在 notice-body 内复制一行 <p class="notice-text"> -->
     <aside class="notice" aria-label="公告">
-      <span class="notice-tag">
-        <span class="dot" aria-hidden="true"></span>公告
-      </span>
+      <span class="notice-tag">公告</span>
       <div class="notice-body">
         <p class="notice-text">
-          <span class="date">2026-09-30</span>我们仍在更新StarOS，最新版本为v1.7.2。
+          <span class="date">2026-09-30</span>我们仍在更新 StarOS，最新版本为 v1.7.2。
         </p>
         <p class="notice-text">
           <span class="date">2026-09-30</span>如想加入请联系我们。
@@ -385,7 +346,7 @@
 
     <section id="about">
       <h2>简介</h2>
-      <p>该工作室创立于2026年9月，我们致力于通过Dev-Cpp开发。</p>
+      <p>该工作室创立于 2026 年 9 月，我们致力于通过 dev-cpp 开发有意思的东西。</p>
     </section>
 
     <section id="download">
@@ -411,7 +372,7 @@
           <a href="https://wwavf.lanzout.com/b01eut71rg"
              target="_blank" rel="noopener noreferrer">
             <span class="mark" aria-hidden="true">↓</span>
-            <span class="name">C++ StarOS（全版本,密码：star）</span>
+            <span class="name">C++ StarOS（全版本,密码:star）</span>
             <span class="meta">蓝奏云 ↗</span>
           </a>
         </li>
