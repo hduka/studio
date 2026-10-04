@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,15 +70,15 @@
   .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: var(--side-w);
     height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 1.5rem 0;
+    padding-block: 1.5rem;
     background: var(--surface);
-    border-right: 1px solid var(--line);
+    border-inline-end: 1px solid var(--line);
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 10;
@@ -92,17 +92,22 @@
     box-shadow: 4px 0 16px rgba(0, 0, 0, .06);
   }
 
+  html[dir="rtl"] .sidebar:hover,
+  html[dir="rtl"] .sidebar:focus-within {
+    box-shadow: -4px 0 16px rgba(0, 0, 0, .06);
+  }
+
   /* ---------- 品牌区 ---------- */
   .side-brand {
-    padding: 0 0 .85rem;
-    border-bottom: 1px solid var(--line);
+    padding-block-end: .85rem;
+    border-block-end: 1px solid var(--line);
   }
 
   .side-brand a {
     display: flex;
     align-items: center;
     gap: .6rem;
-    padding-left: 15px;
+    padding-inline-start: 15px;
     text-decoration: none;
     white-space: nowrap;
   }
@@ -144,6 +149,64 @@
     line-height: 1.2;
   }
 
+  /* ---------- 语言切换 ---------- */
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    padding-inline: 15px .75rem;
+    margin-block-start: -.25rem;
+  }
+
+  .lang-globe {
+    flex: none;
+    font-size: 1.02rem;
+    line-height: 1;
+    opacity: .85;
+  }
+
+  .lang-select {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: .32rem .4rem;
+    font: inherit;
+    font-size: .82em;
+    line-height: 1.4;
+    color: var(--fg-2);
+    background-color: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .16s ease .04s,
+                border-color .15s ease,
+                color .15s ease;
+
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right .45rem center;
+    padding-inline-end: 1.35rem;
+  }
+
+  .sidebar:hover .lang-select,
+  .sidebar:focus-within .lang-select {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lang-select:hover { border-color: var(--accent-bd); }
+  .lang-select:focus-visible { border-color: var(--accent); }
+
+  html[dir="rtl"] .lang-select {
+    background-position: left .45rem center;
+    padding-inline-end: .4rem;
+    padding-inline-start: 1.35rem;
+  }
+
   /* ---------- 侧边导航 ---------- */
   .side-nav ul {
     list-style: none;
@@ -151,18 +214,19 @@
     padding: 0;
   }
 
-  .side-nav li + li { margin-top: .1rem; }
+  .side-nav li + li { margin-block-start: .1rem; }
 
   .side-nav a {
     display: flex;
     align-items: center;
     gap: .6rem;
-    padding: .5rem 0 .5rem 27px;
+    padding-block: .5rem;
+    padding-inline: 27px 0;
     color: var(--fg-2);
     text-decoration: none;
     font-size: .92em;
     white-space: nowrap;
-    border-left: 3px solid transparent;
+    border-inline-start: 3px solid transparent;
     transition: background-color .15s ease,
                 color .15s ease,
                 border-color .15s ease;
@@ -191,7 +255,7 @@
 
   .side-nav a.active {
     color: var(--accent);
-    border-left-color: var(--accent);
+    border-inline-start-color: var(--accent);
     background: var(--accent-bg);
     font-weight: 600;
   }
@@ -211,8 +275,10 @@
     display: flex;
     align-items: center;
     gap: .5rem;
-    margin: auto .75rem 0;
-    padding: .5rem 0 .5rem 16px;
+    margin-block: auto 0;
+    margin-inline: .75rem;
+    padding-block: .5rem;
+    padding-inline: 16px 0;
     font-size: .88em;
     color: var(--accent);
     text-decoration: none;
@@ -239,15 +305,15 @@
 
   /* ---------- 主内容 ---------- */
   .main {
-    margin-left: var(--side-w);
+    margin-inline-start: var(--side-w);
     min-width: 0;
     padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 2.5rem) 0;
-    transition: margin-left .28s var(--side-ease);
+    transition: margin-inline-start .28s var(--side-ease);
   }
 
   .sidebar:hover ~ .main,
   .sidebar:focus-within ~ .main {
-    margin-left: var(--side-w-open);
+    margin-inline-start: var(--side-w-open);
   }
 
   .main-inner {
@@ -257,8 +323,8 @@
 
   /* ---------- 顶部 ---------- */
   .hero {
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--line);
+    padding-block-end: 1.25rem;
+    border-block-end: 1px solid var(--line);
     scroll-margin-top: 1rem;
   }
 
@@ -296,7 +362,7 @@
     padding: .75rem 1rem;
     background: var(--accent-bg);
     border: 1px solid var(--accent-bd);
-    border-left: 3px solid var(--accent);
+    border-inline-start: 3px solid var(--accent);
     border-radius: var(--radius);
   }
 
@@ -304,7 +370,7 @@
     flex: none;
     display: inline-block;
     padding: .05rem .5rem;
-    margin-top: .15rem;
+    margin-block-start: .15rem;
     font-size: .74em;
     font-weight: 600;
     letter-spacing: .06em;
@@ -329,7 +395,7 @@
   }
 
   .notice-text .date {
-    margin-right: .5rem;
+    margin-inline-end: .5rem;
     font-size: .88em;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
@@ -337,28 +403,28 @@
 
   /* ---------- 区块 ---------- */
   section {
-    padding: clamp(1.4rem, 3.5vw, 2rem) 0;
-    border-bottom: 1px solid var(--line);
+    padding-block: clamp(1.4rem, 3.5vw, 2rem);
+    border-block-end: 1px solid var(--line);
     scroll-margin-top: 1rem;
   }
 
-  section:last-of-type { border-bottom: 0; }
+  section:last-of-type { border-block-end: 0; }
 
   h2 {
     display: block;
     margin: 0 0 1rem;
-    padding-left: .7rem;
+    padding-inline-start: .7rem;
     font-size: 1.02rem;
     font-weight: 600;
     line-height: 1.3;
     color: var(--fg);
-    border-left: 3px solid var(--accent);
+    border-inline-start: 3px solid var(--accent);
   }
 
   p { margin: 0 0 .6rem; }
   p:last-child { margin-bottom: 0; }
 
-  /* ---------- 下载入口（主页只留一个跳转入口） ---------- */
+  /* ---------- 下载入口 ---------- */
   .entry {
     display: flex;
     align-items: center;
@@ -416,6 +482,11 @@
     transform: translateX(3px);
   }
 
+  html[dir="rtl"] .entry:hover .entry-arrow,
+  html[dir="rtl"] .entry:focus-visible .entry-arrow {
+    transform: translateX(-3px);
+  }
+
   /* ---------- 友情链接 ---------- */
   .links {
     list-style: none;
@@ -429,7 +500,7 @@
     display: inline-flex;
     align-items: baseline;
     gap: .5rem;
-    padding: .35rem 0;
+    padding-block: .35rem;
     color: var(--accent);
     text-decoration: none;
     transition: color .15s ease;
@@ -441,6 +512,8 @@
     font-size: .9em;
     color: var(--accent);
   }
+
+  html[dir="rtl"] .links a::before { content: "◂"; }
 
   .links a:hover,
   .links a:focus-visible {
@@ -508,11 +581,11 @@
   /* ---------- 页脚 ---------- */
   footer {
     padding: 1.5rem 0 2.5rem;
-    margin-top: clamp(1.4rem, 3.5vw, 2rem);
+    margin-block-start: clamp(1.4rem, 3.5vw, 2rem);
     font-size: .82em;
     color: var(--muted);
     text-align: center;
-    border-top: 1px solid var(--line);
+    border-block-start: 1px solid var(--line);
   }
 
   footer p { margin: 0; }
@@ -528,8 +601,8 @@
       align-items: center;
       gap: .5rem;
       padding: .75rem 1rem;
-      border-right: 0;
-      border-bottom: 1px solid var(--line);
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--line);
       overflow: visible;
     }
 
@@ -541,7 +614,24 @@
 
     .side-brand { display: none; }
 
-    .side-nav { width: 100%; }
+    .lang-switch {
+      padding-inline: 0;
+      margin: 0;
+      order: 3;
+      width: 100%;
+    }
+
+    .lang-switch .lang-globe { display: none; }
+
+    .lang-select {
+      opacity: 1;
+      pointer-events: auto;
+      width: auto;
+      flex: none;
+      font-size: .85em;
+    }
+
+    .side-nav { width: 100%; order: 2; }
 
     .side-nav ul {
       display: flex;
@@ -567,7 +657,7 @@
     .main,
     .sidebar:hover ~ .main,
     .sidebar:focus-within ~ .main {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
 
@@ -588,36 +678,50 @@
         <span class="brand-logo" aria-hidden="true">H</span>
         <span class="brand-text">
           <strong>Hduka Studio</strong>
-          <small>hduka c++</small>
+          <small data-i18n="tagline">hduka c++</small>
         </span>
       </a>
     </div>
 
-    <nav class="side-nav" aria-label="页面导航">
+    <!-- 语言切换 -->
+    <div class="lang-switch">
+      <span class="lang-globe" aria-hidden="true">🌐</span>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="zh-CN">简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+
+    <nav class="side-nav" aria-label="Navigation">
       <ul>
         <li>
           <a href="https://hduka.github.io/studio/" class="active">
-            <span class="nav-text">首页</span>
+            <span class="nav-text" data-i18n="nav_home">首页</span>
           </a>
         </li>
         <li>
           <a href="https://hduka.github.io/studio/#about">
-            <span class="nav-text">简介</span>
+            <span class="nav-text" data-i18n="nav_about">简介</span>
           </a>
         </li>
         <li>
           <a href="https://hduka.github.io/studio/download.html">
-            <span class="nav-text">文件下载</span>
+            <span class="nav-text" data-i18n="nav_download">文件下载</span>
           </a>
         </li>
         <li>
           <a href="https://hduka.github.io/studio/#links">
-            <span class="nav-text">友情链接</span>
+            <span class="nav-text" data-i18n="nav_links">友情链接</span>
           </a>
         </li>
         <li>
           <a href="https://hduka.github.io/studio/#contact">
-            <span class="nav-text">联系方式</span>
+            <span class="nav-text" data-i18n="nav_contact">联系方式</span>
           </a>
         </li>
       </ul>
@@ -625,7 +729,7 @@
 
     <a class="side-top" href="#top">
       <span aria-hidden="true">↑</span>
-      <span class="top-text">返回顶部</span>
+      <span class="top-text" data-i18n="back_top">返回顶部</span>
     </a>
   </aside>
 
@@ -635,80 +739,359 @@
 
       <header class="hero" id="top">
         <img src="https://cdn.luogu.com.cn/upload/image_hosting/bkkzfzgo.png"
-             alt="Hduka Studio 横幅图片">
-        <h1>欢迎来到 Hduka Studio</h1>
-        <p class="tagline">hduka c++</p>
+             alt="Hduka Studio">
+        <h1 data-i18n="h1">欢迎来到 Hduka Studio</h1>
+        <p class="tagline" data-i18n="tagline2">hduka c++</p>
       </header>
 
       <!-- 公告栏 -->
-      <aside class="notice" aria-label="公告">
-        <span class="notice-tag">公告</span>
+      <aside class="notice" aria-label="Notice">
+        <span class="notice-tag" data-i18n="notice_tag">公告</span>
         <div class="notice-body">
           <p class="notice-text">
-            <span class="date">2026-09-30</span>我们仍在更新 StarOS，最新版本为 v1.7.2。
+            <span class="date">2026-09-30</span><span data-i18n="notice_1">我们仍在更新 StarOS，最新版本为 v1.7.2。</span>
           </p>
           <p class="notice-text">
-            <span class="date">2026-09-30</span>如想加入请联系我们。
+            <span class="date">2026-09-30</span><span data-i18n="notice_2">如想加入请联系我们。</span>
           </p>
         </div>
       </aside>
 
       <section id="about">
-        <h2>简介</h2>
-        <p>该工作室创立于 2026 年 9 月，我们致力于通过 dev-cpp 开发有意思的东西。</p>
-		<p>想要工作室加入请联系：1493711831@qq.com</p>
-		<p>该网站成立于 2026 年 9 月（跟工作室同月），由工作室创始人hduka手搓，如想共同编辑，请联系我们（不限方式）。</p>
+        <h2 data-i18n="about_h">简介</h2>
+        <p data-i18n="about_p1">该工作室创立于 2026 年 9 月，我们致力于通过 dev-cpp 开发有意思的东西。</p>
+        <p data-i18n="about_p2">想要工作室加入请联系：1493711831@qq.com</p>
+        <p data-i18n="about_p3">该网站成立于 2026 年 9 月（跟工作室同月），由工作室创始人 hduka 手搓，如想共同编辑，请联系我们（不限方式）。</p>
       </section>
 
-      <!-- 下载入口：跳转到独立的下载页 -->
+      <!-- 下载入口 -->
       <section id="download-entry">
-        <h2>文件下载</h2>
+        <h2 data-i18n="dl_h">文件下载</h2>
         <a class="entry" href="https://hduka.github.io/studio/download.html">
           <span class="entry-icon" aria-hidden="true">↓</span>
           <span class="entry-body">
-            <span class="entry-title">前往下载页</span>
-            <span class="entry-desc">download</span>
+            <span class="entry-title" data-i18n="dl_entry_title">前往下载页</span>
+            <span class="entry-desc" data-i18n="dl_entry_desc">download</span>
           </span>
           <span class="entry-arrow" aria-hidden="true">→</span>
         </a>
       </section>
 
       <section id="links">
-        <h2>友情链接</h2>
+        <h2 data-i18n="links_h">友情链接</h2>
         <ul class="links">
           <li>
             <a href="https://github.com/hduka/studio"
                target="_blank" rel="noopener noreferrer">
-              网站仓库 <span class="desc">github</span>
+              <span data-i18n="link_repo">网站仓库</span>
+              <span class="desc">github</span>
             </a>
           </li>
         </ul>
       </section>
 
       <section id="contact">
-        <h2>联系方式</h2>
+        <h2 data-i18n="contact_h">联系方式</h2>
         <ul class="contact">
           <li>
-            <span class="label">邮箱</span>
-            <span class="label">Yanghaorui_@outlook.com</span>
-            <span class="note">（不常看）</span>
+            <span class="label" data-i18n="contact_email">邮箱</span>
+            <a class="link" href="mailto:Yanghaorui_@outlook.com">Yanghaorui_@outlook.com</a>
+            <span class="note" data-i18n="contact_note">（不常看）</span>
           </li>
           <li>
-            <span class="label">最新发布</span>
+            <span class="label" data-i18n="contact_latest">最新发布</span>
             <a class="link" href="https://space.bilibili.com/3546939358447984"
                target="_blank" rel="noopener noreferrer">
-              哔哩哔哩主页 <span class="out">↗</span>
+              <span data-i18n="contact_bili">哔哩哔哩主页</span>
+              <span class="out">↗</span>
             </a>
           </li>
         </ul>
       </section>
 
       <footer>
-        <p>© 2026 Hduka Studio · 该网页纯手写（该网页版本为 1.2.4）</p>
+        <p data-i18n="footer">© 2026 Hduka Studio · 该网页纯手写（该网页版本为 1.2.4）</p>
       </footer>
 
     </div>
   </main>
+
+  <script>
+  (function () {
+    var I18N = {
+      "zh-CN": {
+        pageTitle: "Hduka Studio | hduka cpp",
+        tagline: "hduka c++",
+        tagline2: "hduka c++",
+        nav_home: "首页",
+        nav_about: "简介",
+        nav_download: "文件下载",
+        nav_links: "友情链接",
+        nav_contact: "联系方式",
+        back_top: "返回顶部",
+        h1: "欢迎来到 Hduka Studio",
+        notice_tag: "公告",
+        notice_1: "我们仍在更新 StarOS，最新版本为 v1.7.2。",
+        notice_2: "如想加入请联系我们。",
+        about_h: "简介",
+        about_p1: "该工作室创立于 2026 年 9 月，我们致力于通过 dev-cpp 开发有意思的东西。",
+        about_p2: "想要工作室加入请联系：1493711831@qq.com",
+        about_p3: "该网站成立于 2026 年 9 月（跟工作室同月），由工作室创始人 hduka 手搓，如想共同编辑，请联系我们（不限方式）。",
+        dl_h: "文件下载",
+        dl_entry_title: "前往下载页",
+        dl_entry_desc: "download",
+        links_h: "友情链接",
+        link_repo: "网站仓库",
+        contact_h: "联系方式",
+        contact_email: "邮箱",
+        contact_note: "（不常看）",
+        contact_latest: "最新发布",
+        contact_bili: "哔哩哔哩主页",
+        footer: "© 2026 Hduka Studio · 该网页纯手写（该网页版本为 1.2.4）"
+      },
+      "zh-TW": {
+        pageTitle: "Hduka Studio | hduka cpp",
+        tagline: "hduka c++",
+        tagline2: "hduka c++",
+        nav_home: "首頁",
+        nav_about: "簡介",
+        nav_download: "檔案下載",
+        nav_links: "友情連結",
+        nav_contact: "聯絡方式",
+        back_top: "返回頂部",
+        h1: "歡迎來到 Hduka Studio",
+        notice_tag: "公告",
+        notice_1: "我們仍在更新 StarOS，最新版本為 v1.7.2。",
+        notice_2: "如想加入請聯絡我們。",
+        about_h: "簡介",
+        about_p1: "該工作室創立於 2026 年 9 月，我們致力於透過 dev-cpp 開發有意思的東西。",
+        about_p2: "想要工作室加入請聯絡：1493711831@qq.com",
+        about_p3: "該網站成立於 2026 年 9 月（跟工作室同月），由工作室創始人 hduka 手搓，如想共同編輯，請聯絡我們（不限方式）。",
+        dl_h: "檔案下載",
+        dl_entry_title: "前往下載頁",
+        dl_entry_desc: "download",
+        links_h: "友情連結",
+        link_repo: "網站倉庫",
+        contact_h: "聯絡方式",
+        contact_email: "信箱",
+        contact_note: "（不常看）",
+        contact_latest: "最新發布",
+        contact_bili: "嗶哩嗶哩主頁",
+        footer: "© 2026 Hduka Studio · 該網頁純手寫（該網頁版本為 1.2.4）"
+      },
+      "en": {
+        pageTitle: "Hduka Studio | hduka cpp",
+        tagline: "hduka c++",
+        tagline2: "hduka c++",
+        nav_home: "Home",
+        nav_about: "About",
+        nav_download: "Downloads",
+        nav_links: "Links",
+        nav_contact: "Contact",
+        back_top: "Back to top",
+        h1: "Welcome to Hduka Studio",
+        notice_tag: "Notice",
+        notice_1: "We are still updating StarOS. The latest version is v1.7.2.",
+        notice_2: "If you'd like to join us, please get in touch.",
+        about_h: "About",
+        about_p1: "Founded in September 2026, we build interesting things with Dev-C++.",
+        about_p2: "To join the studio, please contact: 1493711831@qq.com",
+        about_p3: "This website was created in September 2026 (the same month as the studio) and hand-coded by the founder, hduka. If you'd like to edit it together, please contact us (any method is fine).",
+        dl_h: "Downloads",
+        dl_entry_title: "Go to Downloads",
+        dl_entry_desc: "download",
+        links_h: "Links",
+        link_repo: "Site Repository",
+        contact_h: "Contact",
+        contact_email: "Email",
+        contact_note: "(rarely checked)",
+        contact_latest: "Latest",
+        contact_bili: "Bilibili Profile",
+        footer: "© 2026 Hduka Studio · Hand-written page (v1.2.4)"
+      },
+      "fr": {
+        pageTitle: "Hduka Studio | hduka cpp",
+        tagline: "hduka c++",
+        tagline2: "hduka c++",
+        nav_home: "Accueil",
+        nav_about: "À propos",
+        nav_download: "Téléchargements",
+        nav_links: "Liens",
+        nav_contact: "Contact",
+        back_top: "Haut de page",
+        h1: "Bienvenue chez Hduka Studio",
+        notice_tag: "Annonce",
+        notice_1: "Nous continuons à mettre à jour StarOS. La dernière version est la v1.7.2.",
+        notice_2: "Pour nous rejoindre, contactez-nous.",
+        about_h: "À propos",
+        about_p1: "Fondé en septembre 2026, nous créons des choses intéressantes avec Dev-C++.",
+        about_p2: "Pour rejoindre le studio, contactez-nous : 1493711831@qq.com",
+        about_p3: "Ce site a été créé en septembre 2026 (le même mois que le studio) et codé à la main par le fondateur, hduka. Si vous souhaitez y contribuer, contactez-nous (par tous les moyens).",
+        dl_h: "Téléchargements",
+        dl_entry_title: "Aller aux téléchargements",
+        dl_entry_desc: "download",
+        links_h: "Liens",
+        link_repo: "Dépôt du site",
+        contact_h: "Contact",
+        contact_email: "E-mail",
+        contact_note: "(consultée rarement)",
+        contact_latest: "Dernières publications",
+        contact_bili: "Profil Bilibili",
+        footer: "© 2026 Hduka Studio · Page écrite à la main (version 1.2.4)"
+      },
+      "es": {
+        pageTitle: "Hduka Studio | hduka cpp",
+        tagline: "hduka c++",
+        tagline2: "hduka c++",
+        nav_home: "Inicio",
+        nav_about: "Acerca de",
+        nav_download: "Descargas",
+        nav_links: "Enlaces",
+        nav_contact: "Contacto",
+        back_top: "Volver arriba",
+        h1: "Bienvenido a Hduka Studio",
+        notice_tag: "Aviso",
+        notice_1: "Seguimos actualizando StarOS. La última versión es la v1.7.2.",
+        notice_2: "Si quieres unirte, ponte en contacto con nosotros.",
+        about_h: "Acerca de",
+        about_p1: "Fundado en septiembre de 2026, creamos cosas interesantes con Dev-C++.",
+        about_p2: "Para unirte al estudio, contacta con: 1493711831@qq.com",
+        about_p3: "Este sitio web fue creado en septiembre de 2026 (el mismo mes que el estudio) y programado a mano por el fundador, hduka. Si quieres editarlo juntos, contáctanos (cualquier método sirve).",
+        dl_h: "Descargas",
+        dl_entry_title: "Ir a descargas",
+        dl_entry_desc: "download",
+        links_h: "Enlaces",
+        link_repo: "Repositorio del sitio",
+        contact_h: "Contacto",
+        contact_email: "Correo",
+        contact_note: "(se revisa poco)",
+        contact_latest: "Últimas novedades",
+        contact_bili: "Perfil de Bilibili",
+        footer: "© 2026 Hduka Studio · Página escrita a mano (versión 1.2.4)"
+      },
+      "ru": {
+        pageTitle: "Hduka Studio | hduka cpp",
+        tagline: "hduka c++",
+        tagline2: "hduka c++",
+        nav_home: "Главная",
+        nav_about: "О нас",
+        nav_download: "Загрузки",
+        nav_links: "Ссылки",
+        nav_contact: "Контакты",
+        back_top: "Наверх",
+        h1: "Добро пожаловать в Hduka Studio",
+        notice_tag: "Объявление",
+        notice_1: "Мы продолжаем обновлять StarOS. Последняя версия — v1.7.2.",
+        notice_2: "Если хотите присоединиться, свяжитесь с нами.",
+        about_h: "О нас",
+        about_p1: "Основана в сентябре 2026 года; мы создаём интересные вещи с помощью Dev-C++.",
+        about_p2: "Чтобы присоединиться к студии, свяжитесь с нами: 1493711831@qq.com",
+        about_p3: "Этот сайт был создан в сентябре 2026 года (в тот же месяц, что и студия) и написан вручную основателем hduka. Если вы хотите редактировать его вместе, свяжитесь с нами (любым способом).",
+        dl_h: "Загрузки",
+        dl_entry_title: "Перейти к загрузкам",
+        dl_entry_desc: "download",
+        links_h: "Ссылки",
+        link_repo: "Репозиторий сайта",
+        contact_h: "Контакты",
+        contact_email: "Эл. почта",
+        contact_note: "(проверяется редко)",
+        contact_latest: "Последние публикации",
+        contact_bili: "Профиль Bilibili",
+        footer: "© 2026 Hduka Studio · Страница написана вручную (версия 1.2.4)"
+      },
+      "ar": {
+        pageTitle: "Hduka Studio | hduka cpp",
+        tagline: "hduka c++",
+        tagline2: "hduka c++",
+        nav_home: "الرئيسية",
+        nav_about: "نبذة",
+        nav_download: "التنزيلات",
+        nav_links: "روابط",
+        nav_contact: "اتصل بنا",
+        back_top: "العودة إلى الأعلى",
+        h1: "مرحبًا بكم في Hduka Studio",
+        notice_tag: "إعلان",
+        notice_1: "ما زلنا نحدّث StarOS. أحدث إصدار هو v1.7.2.",
+        notice_2: "إذا أردت الانضمام إلينا، تواصل معنا.",
+        about_h: "نبذة",
+        about_p1: "تأسس الاستوديو في سبتمبر 2026، ونعمل على إنشاء أشياء ممتعة باستخدام Dev-C++.",
+        about_p2: "للانضمام إلى الاستوديو، تواصل معنا: 1493711831@qq.com",
+        about_p3: "أُنشئ هذا الموقع في سبتمبر 2026 (في الشهر نفسه الذي تأسس فيه الاستوديو)، وقد كتبه المؤسس hduka يدويًا. إذا أردت المشاركة في تحريره، تواصل معنا (بأي وسيلة).",
+        dl_h: "التنزيلات",
+        dl_entry_title: "الذهاب إلى صفحة التنزيلات",
+        dl_entry_desc: "download",
+        links_h: "روابط",
+        link_repo: "مستودع الموقع",
+        contact_h: "اتصل بنا",
+        contact_email: "البريد الإلكتروني",
+        contact_note: "(يُطّلع عليه نادرًا)",
+        contact_latest: "أحدث الإصدارات",
+        contact_bili: "صفحة Bilibili",
+        footer: "© 2026 Hduka Studio · صفحة مكتوبة يدويًا (الإصدار 1.2.4)"
+      }
+    };
+
+    var SUPPORTED = Object.keys(I18N);
+    var DEFAULT = "zh-CN";
+    var STORAGE_KEY = "hduka-lang";
+
+    function detect() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved && SUPPORTED.indexOf(saved) !== -1) return saved;
+      } catch (e) {}
+
+      var list = (navigator.languages && navigator.languages.length)
+        ? navigator.languages
+        : [navigator.language || ""];
+
+      for (var i = 0; i < list.length; i++) {
+        var tag = String(list[i] || "").toLowerCase();
+        if (!tag) continue;
+        if (tag.indexOf("zh") === 0) {
+          return /(hant|tw|hk|mo)/.test(tag) ? "zh-TW" : "zh-CN";
+        }
+        var base = tag.split("-")[0];
+        if (SUPPORTED.indexOf(base) !== -1) return base;
+      }
+      return DEFAULT;
+    }
+
+    function apply(lang) {
+      var dict = I18N[lang] || I18N[DEFAULT];
+      var root = document.documentElement;
+
+      root.lang = lang;
+      root.dir = (lang === "ar") ? "rtl" : "ltr";
+
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n");
+        if (dict[key] != null) el.textContent = dict[key];
+      });
+
+      if (dict.pageTitle) document.title = dict.pageTitle;
+
+      var sel = document.getElementById("lang-select");
+      if (sel && sel.value !== lang) sel.value = lang;
+    }
+
+    function save(lang) {
+      try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    }
+
+    var sel = document.getElementById("lang-select");
+    var initial = detect();
+    apply(initial);
+
+    if (sel) {
+      sel.value = initial;
+      sel.addEventListener("change", function () {
+        apply(sel.value);
+        save(sel.value);
+      });
+    }
+  })();
+  </script>
 
 </body>
 </html>
