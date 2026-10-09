@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>hduka studio | 404</title>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Hduka Studio —— 2026 年 9 月创立的个人开发工作室，提供 C++ 命令行工具下载。">
+<meta name="description" content="Hduka Studio —— 页面未找到（404）。">
 <meta name="theme-color" content="#3498db">
+<title>hduka studio | 404</title>
+
 <style>
-	/* ---------- 主题变量（洛谷配色） ---------- */
+  /* ---------- 主题变量（洛谷配色） ---------- */
   :root {
     --bg: #f5f6f8;
     --surface: #ffffff;
@@ -65,6 +65,7 @@
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
+
   /* ---------- 页脚 ---------- */
   footer {
     padding: 1.5rem 0 2.5rem;
@@ -76,6 +77,8 @@
   }
 
   footer p { margin: 0; }
+
+  /* ---------- 主内容 ---------- */
   .main {
     margin-left: var(--side-w);
     min-width: 0;
@@ -92,16 +95,92 @@
     width: min(100%, 880px);
     margin-inline: auto;
   }
+
+  /* ---------- 404 图片（缩至原图约 1/4） ---------- */
+  .error-img {
+    display: block;
+    width: min(100%, 130px);
+    height: auto;
+    margin: 0 0 1.25rem 0;
+    border-radius: var(--radius);
+  }
+
+  /* ---------- 标题 ---------- */
+  .error-title {
+    margin: 0 0 .3rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--fg);
+  }
+
+  .error-desc {
+    margin: 0 0 1.5rem;
+    font-size: .95em;
+    color: var(--muted);
+  }
+
+  /* ---------- 按钮 ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .6rem 1.35rem;
+    font-size: .92em;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #fff;
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s ease,
+                border-color .15s ease,
+                transform .15s ease,
+                box-shadow .15s ease;
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, .25);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
 </style>
 </head>
 <body>
- <main class="main">
-    <div class="main-inner">
-		<h1>404 NOT FOUND</h1>
- 
-		<h4>您查找的网页可能移动或删除</h4>
 
-		<p><a href="https://hduka.github.io/studio/">返回首页</a></p>
- 
+  <main class="main">
+    <div class="main-inner">
+
+      <!-- 页首左侧 404 图片（缩至原图约 1/4） -->
+      <img class="error-img"
+           src="https://cdn.luogu.com.cn/upload/image_hosting/in6hkrrs.webp"
+           alt="404 页面插图">
+
+      <h1 class="error-title">404 NOT FOUND</h1>
+      <p class="error-desc">您查找的网页可能已被移动或删除。</p>
+
+      <a class="btn" href="https://hduka.github.io/studio/">
+        <span aria-hidden="true">←</span>
+        返回首页
+      </a>
+
+    </div>
+  </main>
+
 </body>
 </html>
