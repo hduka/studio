@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Hduka Studio 文件下载 —— C++ CMD、C++ MS-DOS、C++ StarOS 等。">
 <meta name="theme-color" content="#0058ee">
+<link rel="icon" type="image/webp" href="https://cdn.luogu.com.cn/upload/image_hosting/k87dqudm.webp">
+<link rel="apple-touch-icon" href="https://cdn.luogu.com.cn/upload/image_hosting/k87dqudm.webp">
 <title>文件下载 | Hduka Studio</title>
 <style>
 :root{
@@ -42,9 +44,8 @@ body{
 .sidebar:hover,.sidebar:focus-within{width:var(--sw-o);box-shadow:3px 0 10px rgba(0,0,0,.18)}
 .brand{padding:0 0 .6rem;border-bottom:1px solid var(--line)}
 .brand a{display:flex;align-items:center;gap:.55rem;padding-left:14px;text-decoration:none;color:inherit;white-space:nowrap}
-.logo{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:3px;
-  background:linear-gradient(to bottom,var(--b2),var(--b4));color:#fff;font-weight:bold;font-size:14px;
-  border:1px solid #003c9c;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.logo{flex:none;width:28px;height:28px;display:block;border-radius:3px;
+  object-fit:cover;border:1px solid #003c9c;background:#fff}
 .brand-txt{display:grid;gap:.05rem;opacity:0;transition:opacity .15s .03s}
 .sidebar:hover .brand-txt,.sidebar:focus-within .brand-txt{opacity:1}
 .brand-txt strong{font-size:12px;color:var(--ac)}
@@ -177,7 +178,7 @@ h2{margin:0 0 .85rem;padding:2px .6rem;font-size:13px;font-weight:bold;color:#ff
 <aside class="sidebar">
   <div class="brand">
     <a href="https://hduka.github.io/studio/" aria-label="Hduka Studio">
-      <span class="logo" aria-hidden="true">H</span>
+      <img class="logo" src="https://cdn.luogu.com.cn/upload/image_hosting/k87dqudm.webp" alt="">
       <span class="brand-txt">
         <strong>Hduka Studio</strong>
         <small data-i18n="tagline">hduka c++</small>
